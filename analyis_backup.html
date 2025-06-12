@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interview Analysis</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="card shadow-lg" id="content-to-pdf">
+            <div class="card-body">
+                <h2 class="card-title text-center mb-4">Interview Analysis Dashboard</h2>
+
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <h5 class="font-weight-bold">Name of the User:</h5>
+                        <p class="text-muted">{{candidate_name}}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <h5 class="font-weight-bold">Language Chosen:</h5>
+                        <p class="text-muted">{{topic}}</p>
+                    </div>
+                </div>
+
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <h5 class="font-weight-bold">Total Questions Attempted:</h5>
+                        <p class="text-muted">10</p>
+                    </div>
+                    <div class="col-md-6">
+                        <h5 class="font-weight-bold">Correct Answers:</h5>
+                        <p class="text-muted">{{correct_questions}}</p>
+                    </div>
+                </div>
+
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <h5 class="font-weight-bold">Wrong Answers:</h5>
+                        <p class="text-muted">{{wrong_questions}}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <h5 class="font-weight-bold">Total Score %:</h5>
+                        <p class="text-muted">{{total_score_percentage}}</p>
+                    </div>
+                </div>
+
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <h5 class="font-weight-bold">Emotion Detected:</h5>
+                        <p class="text-muted">{{final_emotion}}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <h5 class="font-weight-bold">Area of Improvement:</h5>
+                        <p class="text-muted">{{area_of_improvement}}</p>
+                    </div>
+                </div>
+
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <h5 class="font-weight-bold">Interview Date:</h5>
+                        <p class="text-muted">{{current_date}}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <h5 class="font-weight-bold">Interview Time:</h5>
+                        <p class="text-muted">{{current_time}}</p>
+                    </div>
+                </div>
+
+                <div class="text-center mt-4">
+                    <button class="btn btn-primary" onclick="window.location.href='/';">Back to Home</button>
+                    <button class="btn btn-success" id="download-pdf">Download as PDF</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script>
+        document.getElementById('download-pdf').addEventListener('click', function () {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            // Add content manually to the PDF
+            doc.setFontSize(16);
+            doc.text('Interview Analysis Dashboard', 105, 20, { align: 'center' });
+
+            doc.setFontSize(12);
+            doc.text('Name of the User: {{candidate_name}}', 20, 40);
+            doc.text('Language Chosen: {{topic}}', 20, 50);
+            doc.text('Total Questions Attempted: 10', 20, 60);
+            doc.text('Correct Answers: {{correct_questions}}', 20, 70);
+            doc.text('Wrong Answers: {{wrong_questions}}', 20, 80);
+            doc.text('Total Score %: {{total_score_percentage}}', 20, 90);
+            doc.text('Emotion Detected: {{final_emotion}}', 20, 100);
+            doc.text('Area of Improvement: {{area_of_improvement}}', 20, 110);
+            doc.text('Interview Date: {{current_date}}', 20, 120);
+            doc.text('Interview Time: {{current_time}}', 20, 130);
+
+            // Save the PDF
+            doc.save('Interview_Analysis.pdf');
+        });
+    </script>
+</body>
+</html>
